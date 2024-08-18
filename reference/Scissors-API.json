@@ -1,0 +1,314 @@
+{
+  "openapi": "3.1.0",
+  "x-stoplight": {
+    "id": "1rdkqusjfn68g"
+  },
+  "info": {
+    "title": "Scissors-API",
+    "version": "1.0",
+    "summary": "Scissors API provides a suite of endpoints for managing short links, Including creating shortened URLs, retrieving link history, customizing URLs, and Generating QR codes",
+    "description": "{\r\n  \"openapi\": \"3.0.0\",\r\n  \"info\": {\r\n    \"title\": \"URL Shortener API\",\r\n    \"version\": \"1.0.0\"\r\n  },\r\n  \"paths\": {\r\n    \"/shorten\": {\r\n      \"post\": {\r\n        \"summary\": \"Shorten a URL\",\r\n        \"requestBody\": {\r\n          \"required\": true,\r\n          \"content\": {\r\n            \"application/json\": {\r\n              \"schema\": {\r\n                \"$ref\": \"#/components/schemas/ShortenUrlRequest\"\r\n              }\r\n            }\r\n          }\r\n        },\r\n        \"responses\": {\r\n          \"200\": {\r\n            \"description\": \"Successful response\",\r\n            \"content\": {\r\n              \"application/json\": {\r\n                \"schema\": {\r\n                  \"$ref\": \"#/components/schemas/ShortenUrlResponse\"\r\n                }\r\n              }\r\n            }\r\n          }\r\n        }\r\n      }\r\n    },\r\n    \"/qrcode\": {\r\n      \"post\": {\r\n        \"summary\": \"Generate QR Code\",\r\n        \"requestBody\": {\r\n          \"required\": true,\r\n          \"content\": {\r\n            \"application/json\": {\r\n              \"schema\": {\r\n                \"$ref\": \"#/components/schemas/QRCodeRequest\"\r\n              }\r\n            }\r\n          }\r\n        },\r\n        \"responses\": {\r\n          \"200\": {\r\n            \"description\": \"Successful response\",\r\n            \"content\": {\r\n              \"image/png\": {\r\n                \"schema\": {\r\n                  \"type\": \"string\",\r\n                  \"format\": \"binary\"\r\n                }\r\n              }\r\n            }\r\n          }\r\n        }\r\n      }\r\n    }\r\n  },\r\n  \"components\": {\r\n    \"schemas\": {\r\n      \"ShortenUrlRequest\": {\r\n        \"type\": \"object\",\r\n        \"properties\": {\r\n          \"originalUrl\": {\r\n            \"type\": \"string\"\r\n          },\r\n          \"customUrl\": {\r\n            \"type\": \"string\"\r\n          }\r\n        }\r\n      },\r\n      \"ShortenUrlResponse\": {\r\n        \"type\": \"object\",\r\n        \"properties\": {\r\n          \"originalUrl\": {\r\n            \"type\": \"string\"\r\n          },\r\n          \"shortUrl\": {\r\n            \"type\": \"string\"\r\n          },\r\n          \"customUrl\": {\r\n            \"type\": \"string\"\r\n          }\r\n        }\r\n      },\r\n      \"QRCodeRequest\": {\r\n        \"type\": \"object\",\r\n        \"properties\": {\r\n          \"url\": {\r\n            \"type\": \"string\"\r\n          }\r\n        }\r\n      }\r\n    }\r\n  }\r\n}\r\n"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000"
+    }
+  ],
+  "paths": {
+    "/users/{userId}": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "integer"
+          },
+          "name": "userId",
+          "in": "path",
+          "required": true,
+          "description": "Id of an existing user."
+        }
+      ],
+      "get": {
+        "summary": "Get User Info by User ID",
+        "tags": [],
+        "responses": {
+          "200": {
+            "description": "User Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                },
+                "examples": {
+                  "Get User Alice Smith": {
+                    "value": {
+                      "id": 142,
+                      "firstName": "Alice",
+                      "lastName": "Smith",
+                      "email": "alice.smith@gmail.com",
+                      "dateOfBirth": "1997-10-31",
+                      "emailVerified": true,
+                      "signUpDate": "2019-08-24"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "User Not Found"
+          }
+        },
+        "operationId": "get-users-userId",
+        "description": "GET \r\nLink History\r\nhttp://localhost:5000/api/history\r\n\r\nExample Response\r\n\r\n {\r\n    \"_id\": \"66bf279e1500e140420618e1\",\r\n    \"originalUrl\": \"https://nairametrics.com/2023/09/23/ranking-the-largest-bank-in-nigeria-based-on-total-assets-2023/\",\r\n    \"shortUrl\": \"uGkC4H8Np\",\r\n    \"clicks\": 0,\r\n    \"createdAt\": \"2024-08-16T10:19:10.906Z\",\r\n    \"updatedAt\": \"2024-08-16T10:19:10.906Z\",\r\n    \"__v\": 0,\r\n    \"qrCode\": \"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHQAAAB0CAYAAABUmhYnAAAAAklEQVR4AewaftIAAAKxSURBVO3BQQ4bSQwEwSxi/v/lXB95akDokdYmGBH/YI1RrFGKNUqxRinWKMUapVijFGuUYo1SrFGKNUqxRinWKMUapVijFGuUh0tJ+CWVkyR0KjeS8EsqN4o1SrFGKdYoDy9TeVMSTpJwkoRPqJyovCkJbyrWKMUapVijPHxZEj6h8ksqN5LwCZVvKtYoxRqlWKM8DKPSJaFTmaxYoxRrlGKN8vCPU+mS0KmcJKFT+ZcVa5RijVKsUR6+TOWXVLoknKjcUPmbFGuUYo1SrFEeXpaEX0pCp3Ki0iWhUzlJwt+sWKMUa5RijfJwSeVfpnKi8i8p1ijFGqVYozxcSkKn8qYkdConSehUuiR0Kl0STlROkvAJlTcVa5RijVKsUR6+LAk3VD6h0iXhJAknKidJ+IRKl4RO5UaxRinWKMUa5eGSyjcloVP5hMpJEjqVLgmdSqfSJaFT6ZLQqbypWKMUa5RijfJwKQmdyg2VNyXhE0noVG4k4ZeKNUqxRinWKA8vS0KncpKELgknKp1Kl4QbKidJ6FROVE6S0KncKNYoxRqlWKM8XFK5oXIjCZ9Q6ZJwIwmdykkSvqlYoxRrlGKN8nApCb+k0ql8Igmdyg2VLgmdyonKm4o1SrFGKdYoDy9TeVMSbiShU/lEEjqVLgknSThJQqdyo1ijFGuUYo3y8GVJ+ITKNyWhUzlR6ZJwotIloVPpkvCmYo1SrFGKNcrDMEnoVLokdEn4hMqbVN5UrFGKNUqxRnlYRyonSehUOpUuCScqN4o1SrFGKdYoD1+m8n9Kwo0kdCqdykkSOpVvKtYoxRqlWKM8vCwJv5SEE5WTJHQqN5LQqXRJ6FTeVKxRijVKsUaJf7DGKNYoxRqlWKMUa5RijVKsUYo1SrFGKdYoxRqlWKMUa5RijVKsUYo1yn/7/Q3xUaBdlQAAAABJRU5ErkJggg==\"\r\n  },\r\n\r\n   GET \r\n\r\n   route to serve the QR code for a specific shortened URL\r\n\r\n   http://localhost:5000/api/qr/uGkC4H8Np\r\n\r\n   Example Response\r\n\r\n   {\r\n  \"qrCode\": \"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHQAAAB0CAYAAABUmhYnAAAAAklEQVR4AewaftIAAAKxSURBVO3BQQ4bSQwEwSxi/v/lXB95akDokdYmGBH/YI1RrFGKNUqxRinWKMUapVijFGuUYo1SrFGKNUqxRinWKMUapVijFGuUh0tJ+CWVkyR0KjeS8EsqN4o1SrFGKdYoDy9TeVMSTpJwkoRPqJyovCkJbyrWKMUapVijPHxZEj6h8ksqN5LwCZVvKtYoxRqlWKM8DKPSJaFTmaxYoxRrlGKN8vCPU+mS0KmcJKFT+ZcVa5RijVKsUR6+TOWXVLoknKjcUPmbFGuUYo1SrFEeXpaEX0pCp3Ki0iWhUzlJwt+sWKMUa5RijfJwSeVfpnKi8i8p1ijFGqVYozxcSkKn8qYkdConSehUuiR0Kl0STlROkvAJlTcVa5RijVKsUR6+LAk3VD6h0iXhJAknKidJ+IRKl4RO5UaxRinWKMUa5eGSyjcloVP5hMpJEjqVLgmdSqfSJaFT6ZLQqbypWKMUa5RijfJwKQmdyg2VNyXhE0noVG4k4ZeKNUqxRinWKA8vS0KncpKELgknKp1Kl4QbKidJ6FROVE6S0KncKNYoxRqlWKM8XFK5oXIjCZ9Q6ZJwIwmdykkSvqlYoxRrlGKN8nApCb+k0ql8Igmdyg2VLgmdyonKm4o1SrFGKdYoDy9TeVMSbiShU/lEEjqVLgknSThJQqdyo1ijFGuUYo3y8GVJ+ITKNyWhUzlR6ZJwotIloVPpkvCmYo1SrFGKNcrDMEnoVLokdEn4hMqbVN5UrFGKNUqxRnlYRyonSehUOpUuCScqN4o1SrFGKdYoD1+m8n9Kwo0kdCqdykkSOpVvKtYoxRqlWKM8vCwJv5SEE5WTJHQqN5LQqXRJ6FTeVKxRijVKsUaJf7DGKNYoxRqlWKMUa5RijVKsUYo1SrFGKdYoxRqlWKMUa5RijVKsUYo1yn/7/Q3xUaBdlQAAAABJRU5ErkJggg==\"\r\n}\r\n\r\n\r\n GET route for redirection from the short URL\r\nhttp://localhost:5000/api/dDvS1QXZ3\r\n\r\n\r\n",
+        "x-stoplight": {
+          "id": "e15b8dq0dbzrh"
+        }
+      },
+      "patch": {
+        "summary": "Update User Information",
+        "operationId": "patch-users-userId",
+        "responses": {
+          "200": {
+            "description": "User Updated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                },
+                "examples": {
+                  "Updated User Rebecca Baker": {
+                    "value": {
+                      "id": 13,
+                      "firstName": "Rebecca",
+                      "lastName": "Baker",
+                      "email": "rebecca@gmail.com",
+                      "dateOfBirth": "1985-10-02",
+                      "emailVerified": false,
+                      "createDate": "2019-08-24"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "User Not Found"
+          },
+          "409": {
+            "description": "Email Already Taken"
+          }
+        },
+        "description": "Update the information of an existing user.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "firstName": {
+                    "type": "string"
+                  },
+                  "lastName": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string",
+                    "description": "If a new email is given, the user's email verified property will be set to false."
+                  },
+                  "dateOfBirth": {
+                    "type": "string"
+                  }
+                }
+              },
+              "examples": {
+                "Update First Name": {
+                  "value": {
+                    "firstName": "Rebecca"
+                  }
+                },
+                "Update Email": {
+                  "value": {
+                    "email": "rebecca@gmail.com"
+                  }
+                },
+                "Update Last Name & Date of Birth": {
+                  "value": {
+                    "lastName": "Baker",
+                    "dateOfBirth": "1985-10-02"
+                  }
+                }
+              }
+            }
+          },
+          "description": "Patch user properties to update."
+        },
+        "x-stoplight": {
+          "id": "y9vvrivaj5ep1"
+        }
+      }
+    },
+    "/user": {
+      "post": {
+        "summary": "Create New User",
+        "operationId": "post-user",
+        "responses": {
+          "200": {
+            "description": "User Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                },
+                "examples": {
+                  "New User Bob Fellow": {
+                    "value": {
+                      "id": 12,
+                      "firstName": "Bob",
+                      "lastName": "Fellow",
+                      "email": "bob.fellow@gmail.com",
+                      "dateOfBirth": "1996-08-24",
+                      "emailVerified": false,
+                      "createDate": "2020-11-18"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Missing Required Information"
+          },
+          "409": {
+            "description": "Email Already Taken"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "firstName": {
+                    "type": "string"
+                  },
+                  "lastName": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string"
+                  },
+                  "dateOfBirth": {
+                    "type": "string",
+                    "format": "date"
+                  }
+                },
+                "required": [
+                  "firstName",
+                  "lastName",
+                  "email",
+                  "dateOfBirth"
+                ]
+              },
+              "examples": {
+                "Create User Bob Fellow": {
+                  "value": {
+                    "firstName": "Bob",
+                    "lastName": "Fellow",
+                    "email": "bob.fellow@gmail.com",
+                    "dateOfBirth": "1996-08-24"
+                  }
+                }
+              }
+            }
+          },
+          "description": "Post the necessary fields for the API to create a new user."
+        },
+        "description": "Shorten Url  \r\nPOST\r\nhttp://localhost:5000/api/shorten\r\n\r\nExample Response\r\n\r\n{\r\n  \"originalUrl\": \"https://www.youtube.com/watch?v=ARvIYcoVXgI\",\r\n  \"shortUrl\": \"fbASuNBqV\",\r\n  \"clicks\": 0,\r\n  \"_id\": \"66c2773baca2264700991ab6\",\r\n  \"createdAt\": \"2024-08-18T22:35:39.211Z\",\r\n  \"updatedAt\": \"2024-08-18T22:35:39.211Z\",\r\n  \"__v\": 0\r\n}\r\n\r\nGET \r\nLink History\r\nhttp://localhost:5000/api/history\r\n",
+        "x-stoplight": {
+          "id": "8oq5ave47j8e7"
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "User": {
+        "title": "User",
+        "type": "object",
+        "description": "",
+        "examples": [
+          {
+            "id": 142,
+            "firstName": "Alice",
+            "lastName": "Smith",
+            "email": "alice.smith@gmail.com",
+            "dateOfBirth": "1997-10-31",
+            "emailVerified": true,
+            "signUpDate": "2019-08-24"
+          }
+        ],
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "Unique identifier for the given user.",
+            "x-stoplight": {
+              "id": "p7vbbferhqpy2"
+            }
+          },
+          "firstName": {
+            "type": "string",
+            "x-stoplight": {
+              "id": "3a5frvfl6nnlz"
+            }
+          },
+          "lastName": {
+            "type": "string",
+            "x-stoplight": {
+              "id": "n6wtk5foplu7j"
+            }
+          },
+          "email": {
+            "type": "string",
+            "format": "email",
+            "x-stoplight": {
+              "id": "fbzjmqdnc9hz4"
+            }
+          },
+          "dateOfBirth": {
+            "type": "string",
+            "format": "date",
+            "example": "1997-10-31",
+            "x-stoplight": {
+              "id": "jmioisgiqb4cp"
+            }
+          },
+          "emailVerified": {
+            "type": "boolean",
+            "description": "Set to true if the user's email has been verified.",
+            "x-stoplight": {
+              "id": "8sv2zov1ozn6v"
+            }
+          },
+          "createDate": {
+            "type": "string",
+            "format": "date",
+            "description": "The date that the user was created.",
+            "x-stoplight": {
+              "id": "jlb14mbu7rx1g"
+            }
+          }
+        },
+        "required": [
+          "id",
+          "firstName",
+          "lastName",
+          "email",
+          "emailVerified"
+        ],
+        "x-stoplight": {
+          "id": "avjlzq3r6ova8"
+        }
+      }
+    }
+  }
+}
