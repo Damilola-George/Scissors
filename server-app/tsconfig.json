@@ -6,8 +6,8 @@
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
-    "resolveJsonModule": true,
-    "types": ["node"]  // Include other required types here
+    "resolveJsonModule": true
+  
   },
   "include": ["src/**/*"],
   "exclude": ["node_modules", "dist"]
