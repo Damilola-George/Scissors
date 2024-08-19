@@ -7,7 +7,7 @@
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "resolveJsonModule": true,
-    "types": ["node", "jest", "mocha"]  // Include other required types here
+    "types": ["node"]  // Include other required types here
   },
   "include": ["src/**/*"],
   "exclude": ["node_modules", "dist"]
